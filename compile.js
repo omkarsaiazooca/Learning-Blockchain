@@ -14,7 +14,7 @@ const path = require('path');
 const fs = require('fs');
 const solc = require('solc');
 
-const inboxpath = path.resolve(__dirname, 'Contracts', 'Inbox.sol');
+const inboxpath = path.resolve(__dirname, 'Inbox.sol');
 const source = fs.readFileSync(inboxpath, 'UTF-8');
 
 var input = {
@@ -34,10 +34,9 @@ var input = {
 };
 
 var output = JSON.parse(solc.compile(JSON.stringify(input)));
+var interface = output.contracts['Inbox.sol']['Inbox'].abi;
+var bytecode = output.contracts['Inbox.sol']['Inbox'].evm.bytecode.object;
 
-exports.interface = output.contracts['Inbox.sol']['Inbox'].interface;
-
-exports.bytecode = output.contracts['Inbox.sol']['Inbox'].evm.bytecode.object;
 module.exports = {
     interface,
     bytecode,
